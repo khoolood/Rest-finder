@@ -1,0 +1,47 @@
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { Restaurant } from './Restaurant';
+//import { Map } from './Map';
+
+export const ListOfRestaurants = () => {
+  const [restaurants, setRestaurants] = useState([]);
+
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+
+  /*useEffect(() => {
+    const getRestaurants = async () => {
+      const response = await fetch(
+        `https://restaurants.herokuapp.com/restaurants`
+      );
+      const data = await response.json();
+      console.log(data.results);
+      setRestaurants(data.results);
+      setFilteredRestaurants(data.results);
+    };
+    getRestaurants();
+  }, []);
+  console.log(restaurants); */
+  useEffect(() => {
+    const getRestaurants = async function getRestaurants() {
+      const data = await fetch('../Restaurants');
+      console.log(data.results);
+      setRestaurants(data.results);
+      setFilteredRestaurants(data.results);
+      console.log(data.results);
+    };
+    getRestaurants();
+  }, []);
+  console.log(restaurants);
+
+  return (
+    <div>
+      <div class="listcontainer">
+        <ul>
+          {restaurants.map((item) => (
+            <Restaurant item={item} />
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
